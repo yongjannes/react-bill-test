@@ -104,6 +104,13 @@
       "money": -200,
       "date": "2025-03-16T10:12:42.189Z",
       "useFor": "food"
+    },
+    {
+      "id": "599c",
+      "type": "income",
+      "money": 200,
+      "date": "2025-01-15T16:00:00.000Z",
+      "useFor": "salary"
     }
   ]
 }

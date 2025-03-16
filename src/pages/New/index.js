@@ -8,6 +8,8 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addBillList } from '../../store/modules/billStore'
 
+import dayjs from 'dayjs'
+
 
 
 const New = () => {
@@ -32,11 +34,20 @@ const New = () => {
      const data = {
        type: billType,
        money: billType === 'pay' ? -money : +money,
-       date: new Date().toISOString(),
+       date: date.toISOString(),
        useFor: useFor
      }
      console.log(data)
      dispatch(addBillList(data))
+   }
+
+   const [date, setDate] = useState()
+   // 日期选择
+   const [dateVisible, setDateVisible] = useState(false)
+
+   const dateConfrim = (value) => {
+    setDate(value)
+    setDateVisible(false)
    }
   return (
     <div className="keepAccounts">
@@ -67,13 +78,17 @@ const New = () => {
           <div className="kaForm">
             <div className="date">
               <Icon type="calendar" className="icon" />
-              <span className="text">{'今天'}</span>
+              <span className="text" onClick={() => setDateVisible(true)}>{dayjs(date).format('YYYY-MM-DD')}</span>
+
               <DatePicker
                 className="kaDate"
                 title="记账日期"
                 max={new Date()}
+                visible={dateVisible}
+                onConfirm={dateConfrim}
               />
             </div>
+
             <div className="kaInput">
             <Input
                 className="input"
@@ -100,7 +115,7 @@ const New = () => {
                   <div
                     className={classNames(
                       'item',
-                      ''
+                      useFor === item.type ? 'selected' : ''
                     )}
                     key={item.type}
                     onClick={() => setUseFor(item.type)}
