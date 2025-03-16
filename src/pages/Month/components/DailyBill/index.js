@@ -28,7 +28,7 @@ const DailyBill = ({ date, billList }) => {
             <div className="header">
                 <div className="dateIcon">
                     <span className="date">{date}</span>
-                    // 控制箭头
+                     {/* 控制箭头 */}
                     <span
                         className={classNames('arrow', !visible && 'expand')}
                         onClick={() => setVisible(!visible)}></span>
