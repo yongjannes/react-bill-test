@@ -4,9 +4,15 @@ import './index.scss'
 import classNames from 'classnames'
 import { billListData } from '../contants'
 import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 
 const New = () => {
+
+     // 1. 区分账单状态
+  const [billType, setBillType] = useState('income')
   const navigate = useNavigate()
+  
+  
   return (
     <div className="keepAccounts">
       <NavBar className="nav" onBack={() => navigate(-1)}>
@@ -15,19 +21,22 @@ const New = () => {
 
       <div className="header">
         <div className="kaType">
-          <Button
-            shape="rounded"
-            className={classNames('selected')}
-          >
-            支出
+           {/* 2. 点击切换状态 */}
+        <Button
+          shape="rounded"
+          className={classNames(billType==='pay'?'selected':'')}
+          onClick={() => setBillType('pay')}
+        >
+          支出
           </Button>
           <Button
-            className={classNames('')}
-            shape="rounded"
-          >
-            收入
-          </Button>
-        </div>
+          className={classNames(billType==='income'?'selected':'')}
+          onClick={() => setBillType('income')}
+          shape="rounded"
+        >
+          收入
+        </Button>
+      </div>
 
         <div className="kaFormWrapper">
           <div className="kaForm">
@@ -53,7 +62,7 @@ const New = () => {
       </div>
 
       <div className="kaTypeList">
-        {billListData['pay'].map(item => {
+        {billListData[billType].map(item => {
           return (
             <div className="kaType" key={item.type}>
               <div className="title">{item.name}</div>
